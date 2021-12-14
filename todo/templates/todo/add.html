@@ -146,14 +146,18 @@
     <title>To-Do List</title>
   </head>
   <body>
+    {%block content%}
     <div id="myDIV" class="header">
         <h2>My To Do List</h2>
-        <input type="text" id="myInput" placeholder="Add A Task">
+        <input type="text" id="myInput" name="task" placeholder="Add A Task">
         <button type="submit" class="addBtn">Add</button>
         <button type="submit" class="removeBtn">Delete</button>
     </div>  
     <ul id="myUL">
-        
+        {%for item in item_list%}
+          <li>{{item}}</li>
+        {%endfor%}
     </ul>
+    {%endblock%}
   </body>
 </html>
