@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <style>
+         * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Lato, sans-serif;
+        }
+
+        /* Style the close button */
+        .removeBtn {
+        padding: 7px;
+        width: 10%;
+        position: absolute;
+        top: 60%;
+        right: 10%;
+        background-color: #a71e1e;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        font-size: 18px;
+        border-radius: 3px;
+        transition: 0.3s;
+        }
+
+        .removeBtn:hover {
+        background-color: #861818;
+        color: rgb(255, 255, 255);
+        }
+
+    </style>
+    <title>Delete</title>
+</head>
+<body>
+    {% extends 'base.html'%}
+    {%block content%}
+    <p>Are You Sure You Want To Delete "{{item}}"??</p>
+        <a href="{% url 'add' %}">Cancel</a>
+    <form action="/" method="post">
+        {% csrf_token %}
+        <button type="submit" class="removeBtn">Delete</button>
+        <!-- <input type="submit" name="Delete"> -->
+    </form>
+    {% endblock %}
+</body>
+</html>

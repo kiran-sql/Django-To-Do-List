@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <style>
+         * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Lato, sans-serif;
+        }
+
+        /* Style the "Add" button */
+        .addBtn {
+        padding: 7px;
+        width: 10%;
+        background: #9450af;
+        color: rgb(255, 255, 255);
+        float: left;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 3px;
+        position: absolute;
+        top: 60%;
+        right: 20%;
+        }
+
+        .addBtn:hover {
+        background-color: rgb(107, 33, 150);
+        }
+    </style>
+    <title>Update</title>
+</head>
+<body>
+    {% extends 'base.html'%}
+    {% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="addBtn">Update</button>
+    </form>
+    {% endblock %}
+</body>
+</html>

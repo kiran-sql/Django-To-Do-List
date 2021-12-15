@@ -14,64 +14,13 @@
         font-family: Lato, sans-serif;
         }
 
-        /* Remove margins and padding from the list */
-        ul {
-        margin: 0;
-        padding: 0;
-        }
-
-        /* Style the list items */
-        ul li {
-        cursor: pointer;
-        position: relative;
-        padding: 12px 8px 12px 40px;
-        background: #eee;
-        font-size: 18px;
-        transition: 0.2s;
-
-        /* make the list items unselectable */
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        }
-
-        /* Set all odd list items to a different color (zebra-stripes) */
-        ul li:nth-child(odd) {
-        background: #f9f9f9;
-        }
-
-        /* Darker background-color on hover */
-        ul li:hover {
-        background: #ddd;
-        }
-
-        /* When clicked on, add a background color and strike out text */
-        ul li.checked {
-        background: #888;
-        color: #fff;
-        text-decoration: line-through;
-        }
-
-        /* Add a "checked" mark when clicked on */
-        ul li.checked::before {
-        content: '';
-        position: absolute;
-        border-color: #fff;
-        border-style: solid;
-        border-width: 0 2px 2px 0;
-        top: 10px;
-        left: 16px;
-        transform: rotate(45deg);
-        height: 15px;
-        width: 7px;
-        }
-
-        /* Style the header */
-        .header {
+         /* Style the header */
+         .header {
         background-color: #d4bdd3;
         padding: 30px 50px;
-        height: 200px;
+        height: 700px;
+        min-height: 700px;
+        overflow: hidden;
         position: relative;
         color: rgb(0, 0, 0);
         text-align: center;
@@ -84,18 +33,46 @@
         clear: both;
         }
 
+        /* Remove margins and padding from the list */
+        ul {
+        margin: 0;
+        padding: 0;
+        }
+
+        /* Style the list items */
+        ul li {
+          display: inline-block;
+        position: relative;
+        padding: 10px 500px;
+        font-size: 20px;
+        width: 100px;
+        transition: 0.2s;
+        }
+        
         /* Style the input */
         input {
         margin: 0;
         border: none;
         border-radius: 3px;
-        width: 70%;
+        width: 50%;
         padding: 10px;
         float: left;
         font-size: 16px;
         position: absolute;
-        top: 60%;
-        right: 20%;
+        top: 30%;
+        right: 30%;
+        }
+
+        .list{
+          margin: 0;
+          border: none;
+          border-radius: 3px;
+          width: 70%;
+          padding: 10px;
+          font-size: 20px;
+          position: absolute;
+          top: 35%;
+          right: 20%;
         }
 
         /* Style the "Add" button */
@@ -112,7 +89,7 @@
         transition: 0.3s;
         border-radius: 3px;
         position: absolute;
-        top: 60%;
+        top: 30%;
         right: 20%;
         }
 
@@ -120,19 +97,30 @@
         background-color: rgb(107, 33, 150);
         }
 
+        .updateBtn{
+          padding: 2px;
+          width: 6%;
+          background: #9450af;
+          color: rgb(255, 255, 255);
+          text-align: center;
+          font-size: 15px;
+          cursor: pointer;
+          transition: 0.3s;
+          border-radius: 3px;
+        }
+
+        .updateBtn:hover {
+        background-color: rgb(107, 33, 150);
+        }
         /* Style the close button */
         .removeBtn {
-        padding: 7px;
-        width: 10%;
-        position: absolute;
-        top: 60%;
-        right: 10%;
+        padding: 2px;
+        width: 6%;
         background-color: #a71e1e;
         color: rgb(255, 255, 255);
-        font-weight: bold;
         cursor: pointer;
         text-align: center;
-        font-size: 18px;
+        font-size: 15px;
         border-radius: 3px;
         transition: 0.3s;
         }
@@ -143,21 +131,39 @@
         }
 
     </style>
-    <title>To-Do List</title>
+    <title>To Do App</title>
   </head>
+
   <body>
+    {% extends 'base.html'%}
     {%block content%}
-    <div id="myDIV" class="header">
+    <div class="header">
+    <form action="/" method="POST">
+      {% csrf_token %}
         <h2>My To Do List</h2>
-        <input type="text" id="myInput" name="task" placeholder="Add A Task">
-        <button type="submit" class="addBtn">Add</button>
-        <button type="submit" class="removeBtn">Delete</button>
-    </div>  
-    <ul id="myUL">
-        {%for item in item_list%}
-          <li>{{item}}</li>
-        {%endfor%}
-    </ul>
-    {%endblock%}
+        {{form.task}}
+          <!-- <input type="submit" name="Create a task"> -->
+            <button type="submit" class="addBtn">Add</button>  
+    </form>
+      <div class="list">
+        <ul>
+          {% for item in list %}
+              {% if item.complete == True %}
+                <li><strike>{{item}}</strike></li>
+              {% else %}
+                <li><span>{{item}}</span></li>
+              {% endif %}
+
+              <a href="{% url 'update_task' item.id %} ">
+                <button type="submit" class="updateBtn">Update</button>
+              </a>
+              <a href="{% url 'remove' item.id %} ">
+                <button type="submit" class="removeBtn">Delete</button>
+              </a>
+          {%endfor%}
+        </ul>
+      </div>
+    </div>
+  {%endblock%}
   </body>
 </html>
