@@ -34,7 +34,7 @@ def update_task_view(request, pk):
 
 def remove_view(request, pk):
     item = ToDO.objects.get(id = pk)
-    if request.method == "POST":
+    if request.method == 'POST':
         item.delete()        
         return redirect('/')
     context = {

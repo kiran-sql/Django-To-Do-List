@@ -13,38 +13,80 @@
         font-family: Lato, sans-serif;
         }
 
-        /* Style the "Add" button */
-        .addBtn {
-        padding: 7px;
-        width: 10%;
-        background: #9450af;
-        color: rgb(255, 255, 255);
-        float: left;
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-        border-radius: 3px;
-        position: absolute;
-        top: 60%;
-        right: 20%;
+        .header {
+          background-color: #85469e;
+          padding: 30px 50px;
+          height: 10%;
+          width: 50%;
+          overflow: hidden;
+          position: absolute;
+          top: 10%;
+          left: 20%;
+          color: rgb(0, 0, 0);
+          text-align: center;
         }
 
-        .addBtn:hover {
+        /* Clear floats after the header */
+        .header:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .task{
+            font-size: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* input textarea {
+        margin: 0;
+        border: none;
+        border-radius: 3px;
+        width: 40%;
+        padding: 10px;
+        float: left;
+        font-size: 16px;
+        position: absolute;
+        top: 10%;
+        right: 40%;
+        } */
+
+        .updateBtn{
+          width: 7%;
+          height: 38%;
+          font-weight: bold;
+          background: #9450af;
+          color: rgb(255, 255, 255);
+          cursor: pointer;
+          transition: 0.3s;
+          border-radius: 4px;
+          position: absolute;
+          top: 40%;
+          right: 20%;
+        }
+
+        .updateBtn:hover {
         background-color: rgb(107, 33, 150);
         }
+
     </style>
     <title>Update</title>
 </head>
 <body>
     {% extends 'base.html'%}
+
     {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit" class="addBtn">Update</button>
-    </form>
+    <div class="header">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="task">
+                {{form}}
+            </div>
+            <button type="submit" class="updateBtn">Update</button>
+        </form>
+    </div>
     {% endblock %}
 </body>
 </html>

@@ -13,13 +13,59 @@
         font-family: Lato, sans-serif;
         }
 
-        /* Style the close button */
-        .removeBtn {
-        padding: 7px;
+        p{
+            font-size: 23px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .header {
+          background-color: #85469e;
+          padding: 30px 50px;
+          height: 15%;
+          width: 50%;
+          overflow: hidden;
+          position: absolute;
+          top: 10%;
+          left: 20%;
+          color: rgb(0, 0, 0);
+          text-align: center;
+        }
+
+        /* Clear floats after the header */
+        .header:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .cancelBtn{
         width: 10%;
         position: absolute;
-        top: 60%;
-        right: 10%;
+        top: 55%;
+        right: 50%;
+        background-color: #c7c7c7;
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        font-size: 18px;
+        border-radius: 3px;
+        transition: 0.3s;
+        }
+
+        .cancelBtn:hover {
+        background-color: #999999;
+        color: rgb(255, 255, 255);
+        }
+
+        /* Style the close button */
+        .removeBtn {
+        width: 10%;
+        position: absolute;
+        top: 55%;
+        right: 40%;
         background-color: #a71e1e;
         color: rgb(255, 255, 255);
         font-weight: bold;
@@ -40,14 +86,18 @@
 </head>
 <body>
     {% extends 'base.html'%}
+
     {%block content%}
-    <p>Are You Sure You Want To Delete "{{item}}"??</p>
-        <a href="{% url 'add' %}">Cancel</a>
-    <form action="/" method="post">
-        {% csrf_token %}
-        <button type="submit" class="removeBtn">Delete</button>
-        <!-- <input type="submit" name="Delete"> -->
-    </form>
+    <div class="header">
+        <p>Are You Sure You Want To Delete the Task - "{{item}}"??</p>
+            <a href="{% url 'add' %}">
+                <button type="submit" class="cancelBtn">Cancel</button>
+            </a>
+        <form action="/" method="post">
+            {% csrf_token %}
+            <input type="submit" class="removeBtn" value="Delete">
+        </form>
+    </div>
     {% endblock %}
 </body>
 </html>

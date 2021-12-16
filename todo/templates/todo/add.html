@@ -16,14 +16,16 @@
 
          /* Style the header */
          .header {
-        background-color: #d4bdd3;
-        padding: 30px 50px;
-        height: 700px;
-        min-height: 700px;
-        overflow: hidden;
-        position: relative;
-        color: rgb(0, 0, 0);
-        text-align: center;
+          background-color: #d4bdd3;
+          padding: 30px 50px;
+          height: 100%;
+          width: 50%;
+          overflow: hidden;
+          position: absolute;
+          top: 0%;
+          left: 20%;
+          color: rgb(0, 0, 0);
+          text-align: center;
         }
 
         /* Clear floats after the header */
@@ -37,15 +39,16 @@
         ul {
         margin: 0;
         padding: 0;
+        overflow: auto;
         }
 
         /* Style the list items */
         ul li {
-          display: inline-block;
+        display: inline-block;
         position: relative;
-        padding: 10px 500px;
+        padding: 10px;
         font-size: 20px;
-        width: 100px;
+        width: 10px;
         transition: 0.2s;
         }
         
@@ -59,20 +62,32 @@
         float: left;
         font-size: 16px;
         position: absolute;
-        top: 30%;
+        top: 10%;
         right: 30%;
         }
 
         .list{
-          margin: 0;
-          border: none;
+          margin: 5px;
+          background-color: #723b88;
           border-radius: 3px;
-          width: 70%;
+          width: 60%;
           padding: 10px;
           font-size: 20px;
           position: absolute;
-          top: 35%;
-          right: 20%;
+          top: 17%;
+          left: 19.2%;
+        }
+
+        .item-list{
+          margin: 2px 2px 2px 2px;
+          text-align: left;
+          color: white;
+          font-weight: bold;
+          border-radius: 3px;
+          width: 98%;
+          height: 15%;
+          position: relative;
+          left: 1px;
         }
 
         /* Style the "Add" button */
@@ -89,7 +104,7 @@
         transition: 0.3s;
         border-radius: 3px;
         position: absolute;
-        top: 30%;
+        top: 10%;
         right: 20%;
         }
 
@@ -98,36 +113,35 @@
         }
 
         .updateBtn{
-          padding: 2px;
-          width: 6%;
+          width: 7%;
           background: #9450af;
           color: rgb(255, 255, 255);
-          text-align: center;
-          font-size: 15px;
           cursor: pointer;
           transition: 0.3s;
-          border-radius: 3px;
+          border-radius: 4px;
+          position: absolute;
+          top: 0%;
+          right: 0%;
         }
 
         .updateBtn:hover {
         background-color: rgb(107, 33, 150);
         }
-        /* Style the close button */
+       
         .removeBtn {
-        padding: 2px;
-        width: 6%;
+        width: 7%;
         background-color: #a71e1e;
         color: rgb(255, 255, 255);
         cursor: pointer;
-        text-align: center;
-        font-size: 15px;
-        border-radius: 3px;
+        border-radius: 4px;
         transition: 0.3s;
+        position: absolute;
+        bottom: 0%;
+        right: 0%;
         }
 
         .removeBtn:hover {
         background-color: #861818;
-        color: rgb(255, 255, 255);
         }
 
     </style>
@@ -138,32 +152,33 @@
     {% extends 'base.html'%}
     {%block content%}
     <div class="header">
-    <form action="/" method="POST">
-      {% csrf_token %}
+      <form action="/" method="POST">
+        {% csrf_token %}
         <h2>My To Do List</h2>
-        {{form.task}}
-          <!-- <input type="submit" name="Create a task"> -->
-            <button type="submit" class="addBtn">Add</button>  
-    </form>
-      <div class="list">
-        <ul>
+          {{form.task}}
+          <button type="submit" class="addBtn">Add</button>  
+      </form>
+     
+      <ul>
+        <div class="list">
           {% for item in list %}
+          <div class="item-list">
               {% if item.complete == True %}
-                <li><strike>{{item}}</strike></li>
+                <li><strike>{{item.task}}</strike></li>
               {% else %}
-                <li><span>{{item}}</span></li>
+                <li>{{item.task}}</li>
               {% endif %}
-
               <a href="{% url 'update_task' item.id %} ">
-                <button type="submit" class="updateBtn">Update</button>
+                <button type="submit" class="updateBtn">✏️</button>
               </a>
               <a href="{% url 'remove' item.id %} ">
-                <button type="submit" class="removeBtn">Delete</button>
+                <button type="submit" class="removeBtn">❌</button>
               </a>
+            </div><hr>
           {%endfor%}
-        </ul>
-      </div>
+        </div>
+      </ul>
     </div>
-  {%endblock%}
+    {%endblock%}
   </body>
 </html>
